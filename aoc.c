@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
-#include <limits.h>
+#include <float.h>
 
 #ifndef AOC_YEAR
 #define AOC_YEAR 2022
@@ -159,13 +159,14 @@ int main(int arg_count, char** args)
         input[new_length] = 0;
     }
 
-    int64_t min_time = INT64_MAX;
-    int64_t max_time = INT64_MIN;
+    float min_time = FLT_MAX;
+    float max_time = -FLT_MAX;
     double avg_time = 0.0;
     for (int i = 0; i < runs; i++)
     {
         platform_reset_memory_arena();
-        int64_t time = platform_run_timed_microseconds(solutions[solution_index], input);
+        int64_t time_us = platform_run_timed_microseconds(solutions[solution_index], input);
+        float time = time_us / 1000.f;
         min_time = min_time < time ? min_time : time;
         max_time = max_time > time ? max_time : time;
         avg_time += ((double)time) / runs;
@@ -178,10 +179,10 @@ int main(int arg_count, char** args)
     printf(
         "Advent of Code %i day "RED("%li")"\n"
         "-------------------------------------------------------------\n"
-        "Timings for "RED("%i")" runs (microseconds)\n"
+        "Timings for "RED("%i")" runs (ms)\n"
         "  Avg: "BLU("%.3f")"\n"
-        "  Min: "BLU("%ji")"\n"
-        "  Max: "BLU("%ji")"\n"
+        "  Min: "BLU("%.3f")"\n"
+        "  Max: "BLU("%.3f")"\n"
         "-------------------------------------------------------------\n"
         "Solutions\n",
         AOC_YEAR, solution_index, runs, avg_time, min_time, max_time
