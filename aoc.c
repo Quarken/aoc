@@ -179,7 +179,7 @@ int main(int arg_count, char** args)
         "Advent of Code %i day "RED("%li")"\n"
         "-------------------------------------------------------------\n"
         "Timings for "RED("%i")" runs (microseconds)\n"
-        "  Avg: "RED("%.3f")"\n"
+        "  Avg: "BLU("%.3f")"\n"
         "  Min: "BLU("%ji")"\n"
         "  Max: "BLU("%ji")"\n"
         "-------------------------------------------------------------\n"

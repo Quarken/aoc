@@ -53,6 +53,7 @@ static inline aoc_part_answer int_answer(long long answer)
 #define PART_ANSWER(ans) _Generic((ans),    \
     char*:          string_answer,          \
     int:            int_answer,             \
+    long:           int_answer,             \
     long long:      int_answer              \
 )(ans)
 
@@ -66,3 +67,6 @@ void* platform_load_function(const char* function_symbol);
 int64_t platform_run_timed_microseconds(aoc_solution_func function, char* input);
 void platform_get_executable_name(char* buffer, int buffer_size);
 void* amalloc(size_t size);
+
+static inline int min(int a, int b) { return a < b ? a : b; }
+static inline int max(int a, int b) { return a > b ? a : b; }
