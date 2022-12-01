@@ -6,9 +6,9 @@ INCLUDES=-I.
 
 CFLAGS=-std=gnu11 -rdynamic -ldl
 RELCFLAGS=-O3 -DNDEBUG
-DBGCFLAGS=-g -Og
+DBGCFLAGS=-g -Og -fsanitize=address
 
-all: | $(BUILDDIR)
+release: | $(BUILDDIR)
 	$(CC) $(CFLAGS) $(RELCFLAGS) $(INCLUDES) $(SOURCES) -o $(BUILDDIR)/$(TARGET)
 
 debug: | $(BUILDDIR)
