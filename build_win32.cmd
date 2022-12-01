@@ -15,7 +15,7 @@ where /Q cl.exe || (
 
 if "%1" equ "debug" (
     set CL=/MTd /Od /Zi /RTC1 /fsanitize=address
-    set LINK=/DEBUG:FASTLINK
+    set LINK=/DEBUG:FULL
 ) else (
     set CL=/MT /GL /O1 /DNDEBUG /GS-
     set LINK=/LTCG /OPT:REF /OPT:ICF

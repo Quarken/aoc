@@ -20,7 +20,7 @@ void usage()
 {
     char basename[255];
     platform_get_executable_name(basename, ARRAY_SIZE(basename));
-    printf("Usage: %s solution [runs]\n", basename);
+    printf("Usage: %s solution [runs]\n\n", basename);
 }
 
 void print_solution(int i, aoc_part_answer ans)
@@ -56,21 +56,17 @@ void print_solution(int i, aoc_part_answer ans)
                 string[len] = 0;
 
                 char* line = string;
-                for (char* p = string; *p != 0; ++p)
+                for (int i = 0; i <= len; i++)
                 {
-                    if (*p == '\n')
+                    char c = string[i];
+                    if (c == '\n' || c == 0)
                     {
-                        *p = 0;
-                        if (line != string)
-                        {
-                            printf(spacing);
-                        }
+                        string[i] = 0;
+                        if (line != string) fputs(spacing, stdout);
                         printf("%s\n", line);
-                        line = p + 1;
+                        line = string + i + 1;
                     }
                 }
-                printf(spacing);
-                printf("%s\n", line);
             }
             printf(RESET);
             break;
@@ -108,7 +104,7 @@ int main(int arg_count, char** args)
 
     if (solutions[solution_index] == NULL)
     {
-        printf("Error: solution for day %i has not yet been implemented.", solution_index);
+        printf("Error: solution for day %li has not yet been implemented.", solution_index);
         return -1;
     }
 
@@ -117,7 +113,7 @@ int main(int arg_count, char** args)
         long runs_input = strtol(args[2], NULL, 10);
         if (runs_input < 1 || runs_input > MAX_RUNS)
         {
-            printf("Error: specified runs is not between 1 and %li\n", MAX_RUNS);
+            printf("Error: specified runs is not between 1 and %i\n", MAX_RUNS);
             return -1;
         }
         runs = runs_input;
@@ -129,7 +125,7 @@ int main(int arg_count, char** args)
     char* input;
     {
         char input_file[32];
-        snprintf(input_file, sizeof(input_file), "%i/inputs/day%i.txt", AOC_YEAR, solution_index);
+        snprintf(input_file, sizeof(input_file), "%i/inputs/day%li.txt", AOC_YEAR, solution_index);
         FILE *file = fopen(input_file, "rb");
 
         if (file == NULL)
@@ -143,7 +139,12 @@ int main(int arg_count, char** args)
         rewind(file);
 
         input = malloc(file_size + 1);
-        fread(input, file_size, 1, file);
+        size_t read = fread(input, 1, file_size, file);
+        if (read != file_size)
+        {
+            printf("Error: failed reading %s into memory\n", input_file);
+            return -1;
+        }
         fclose(file);
 
         // replace \r\n with \n in place.
@@ -175,12 +176,12 @@ int main(int arg_count, char** args)
     aoc_answer ans = solutions[solution_index](input);
 
     printf(
-        "Advent of Code %i day "RED("%i")"\n"
+        "Advent of Code %i day "RED("%li")"\n"
         "-------------------------------------------------------------\n"
         "Timings for "RED("%i")" runs (microseconds)\n"
         "  Avg: "RED("%.3f")"\n"
-        "  Min: "BLU("%lli")"\n"
-        "  Max: "BLU("%lli")"\n"
+        "  Min: "BLU("%ji")"\n"
+        "  Max: "BLU("%ji")"\n"
         "-------------------------------------------------------------\n"
         "Solutions\n",
         AOC_YEAR, solution_index, runs, avg_time, min_time, max_time

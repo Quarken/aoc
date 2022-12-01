@@ -40,12 +40,12 @@ typedef struct
     aoc_part_answer part2;
 } aoc_answer;
 
-inline aoc_part_answer string_answer(char* answer)
+static inline aoc_part_answer string_answer(char* answer)
 {
     return (aoc_part_answer){ .type = AOC_ANSWER_STRING, .string_answer = answer };
 }
 
-inline aoc_part_answer int_answer(long long answer)
+static inline aoc_part_answer int_answer(long long answer)
 {
     return (aoc_part_answer){ .type = AOC_ANSWER_INT, .int_answer = answer };
 }
