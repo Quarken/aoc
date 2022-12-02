@@ -1,24 +1,13 @@
 #include "aoc.h"
 
-int parse_int(char* ptr, char** end) {
-    int result = 0;
-    for (; *ptr != 0 && *ptr != '\n'; ++ptr)
-    {
-        result = 10 * result + (*ptr) - '0';
-    }
-    *end = ptr;
-    return result;
-}
-
 AOC_SOLUTION(1)(char* input)
 {
     int running_max[4] = {0};
     int current_elf_sum = 0;
-
     char *ptr = input;
-    while (1)
+    do
     {
-        int num = parse_int(ptr, &ptr);
+        int num = parse_int_unsafe(ptr, &ptr);
         current_elf_sum += num;
         if (ptr[0] == 0 || ptr[1] == '\n')
         {
@@ -33,10 +22,7 @@ AOC_SOLUTION(1)(char* input)
             }
             current_elf_sum = 0;
         }
-
-        if (*ptr == 0) break;
-        ++ptr;
-    }
+    } while (*ptr++ != 0);
 
     return ANSWER(
         running_max[0],

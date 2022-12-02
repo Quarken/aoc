@@ -68,5 +68,19 @@ int64_t platform_run_timed_microseconds(aoc_solution_func function, char* input)
 void platform_get_executable_name(char* buffer, int buffer_size);
 void* amalloc(size_t size);
 
+// ----------------------------
+// util functions
+// ----------------------------
+
 static inline int min(int a, int b) { return a < b ? a : b; }
 static inline int max(int a, int b) { return a > b ? a : b; }
+
+static inline int parse_int_unsafe(char* ptr, char** end) {
+    int result = 0;
+    for (; *ptr != 0 && *ptr != '\n'; ++ptr)
+    {
+        result = 10 * result + (*ptr) - '0';
+    }
+    *end = ptr;
+    return result;
+}
