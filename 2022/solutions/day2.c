@@ -18,37 +18,37 @@ AOC_SOLUTION(2)(char* input)
 {
     int lookup_part1[4][4] = {
         [ROCK] = {
-            [ROCK]     = 1+3,
-            [PAPER]    = 2+6,
-            [SCISSORS] = 3+0
+            [ROCK]     = 1 + 3,
+            [PAPER]    = 2 + 6,
+            [SCISSORS] = 3 + 0
         },
         [PAPER] = {
-            [ROCK]     = 1+0,
-            [PAPER]    = 2+3,
-            [SCISSORS] = 3+6
+            [ROCK]     = 1 + 0,
+            [PAPER]    = 2 + 3,
+            [SCISSORS] = 3 + 6
         },
         [SCISSORS] = {
-            [ROCK]     = 1+6,
-            [PAPER]    = 2+0,
-            [SCISSORS] = 3+3
+            [ROCK]     = 1 + 6,
+            [PAPER]    = 2 + 0,
+            [SCISSORS] = 3 + 3
         },
     };
 
     int lookup_part2[4][4] = {
         [ROCK] = {
-            [LOSE] = SCISSORS + 0,
-            [DRAW] = ROCK     + 3,
-            [WIN]  = PAPER    + 6
+            [LOSE] = 0 + SCISSORS,
+            [DRAW] = 3 + ROCK,
+            [WIN]  = 6 + PAPER
         },
         [PAPER] = {
-            [LOSE] = ROCK     + 0,
-            [DRAW] = PAPER    + 3,
-            [WIN]  = SCISSORS + 6
+            [LOSE] = 0 + ROCK,
+            [DRAW] = 3 + PAPER,
+            [WIN]  = 6 + SCISSORS,
         },
         [SCISSORS] = {
-            [LOSE] = PAPER    + 0,
-            [DRAW] = SCISSORS + 3,
-            [WIN]  = ROCK     + 6
+            [LOSE] = 0 + PAPER,
+            [DRAW] = 3 + SCISSORS,
+            [WIN]  = 6 + ROCK
         },
     };
 
