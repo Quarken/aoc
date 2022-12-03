@@ -42,23 +42,21 @@ AOC_SOLUTION(3)(char* input, int input_length)
     int index = 0;
     while (index < input_length)
     {
-        uint64_t mask = ~0;
+        uint64_t badge_mask = ~0;
         for (int line = 0; line < 3; line++)
         {
             char* ptr = input + index;
             int length = line_length(ptr);
             int len_half = length / 2;
 
-            uint64_t mask1 = string_to_bitmask(ptr, len_half);
-            uint64_t mask2 = string_to_bitmask(ptr + len_half, len_half);
-            mask &= mask1 | mask2;
+            uint64_t compartment_mask0 = string_to_bitmask(ptr, len_half);
+            uint64_t compartment_mask1 = string_to_bitmask(ptr + len_half, len_half);
+            badge_mask &= compartment_mask0 | compartment_mask1;
 
-            char c = bitmask_to_character(mask1 & mask2);
-            part1 += priority(c);
+            part1 += priority(bitmask_to_character(compartment_mask0 & compartment_mask1));
             index += length + 1;
         }
-        char c = bitmask_to_character(mask);
-        part2 += priority(c);
+        part2 += priority(bitmask_to_character(badge_mask));
     }
     return ANSWER(part1, part2);
 }
