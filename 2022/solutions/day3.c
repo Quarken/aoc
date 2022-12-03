@@ -49,11 +49,11 @@ AOC_SOLUTION(3)(char* input, int input_length)
             int length = line_length(ptr);
             int len_half = length / 2;
 
-            uint64_t compartment_mask0 = string_to_bitmask(ptr, len_half);
-            uint64_t compartment_mask1 = string_to_bitmask(ptr + len_half, len_half);
-            badge_mask &= compartment_mask0 | compartment_mask1;
+            uint64_t compartment0 = string_to_bitmask(ptr, len_half);
+            uint64_t compartment1 = string_to_bitmask(ptr + len_half, len_half);
+            badge_mask &= compartment0 | compartment1;
 
-            part1 += priority(bitmask_to_character(compartment_mask0 & compartment_mask1));
+            part1 += priority(bitmask_to_character(compartment0 & compartment1));
             index += length + 1;
         }
         part2 += priority(bitmask_to_character(badge_mask));
