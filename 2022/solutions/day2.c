@@ -14,7 +14,7 @@ enum
     WIN = 3
 };
 
-AOC_SOLUTION(2)(char* input)
+AOC_SOLUTION(2)(char* input, int input_length)
 {
     int lookup_part1[4][4] = {
         [ROCK] = {

@@ -61,11 +61,11 @@ void* platform_load_function(const char* function_symbol)
     return (void*)dlsym(dlopen(NULL, RTLD_LAZY), function_symbol);
 }
 
-int64_t platform_run_timed_microseconds(aoc_solution_func function, char* input)
+int64_t platform_run_timed_microseconds(aoc_solution_func function, char* input, int input_length)
 {
     struct timespec start_ts, end_ts;
     clock_gettime(CLOCK_MONOTONIC_RAW, &start_ts);
-    function(input);
+    function(input, input_length);
     clock_gettime(CLOCK_MONOTONIC_RAW, &end_ts);
     int64_t start = start_ts.tv_sec * 1000000ULL + start_ts.tv_nsec / 1000;
     int64_t end = end_ts.tv_sec * 1000000ULL + start_ts.tv_nsec / 1000;

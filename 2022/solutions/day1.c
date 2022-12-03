@@ -1,6 +1,6 @@
 #include "aoc.h"
 
-AOC_SOLUTION(1)(char* input)
+AOC_SOLUTION(1)(char* input, int input_length)
 {
     int running_max[4] = {0};
     int current_elf_sum = 0;

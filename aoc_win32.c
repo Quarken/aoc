@@ -63,12 +63,12 @@ void* platform_load_function(const char* function_symbol)
     return (void*)GetProcAddress(GetModuleHandleA(NULL), function_symbol);
 }
 
-int64_t platform_run_timed_microseconds(aoc_solution_func function, char* input)
+int64_t platform_run_timed_microseconds(aoc_solution_func function, char* input, int input_length)
 {
     LARGE_INTEGER starting_time, ending_time, frequency;
     QueryPerformanceFrequency(&frequency);
     QueryPerformanceCounter(&starting_time);
-    function(input);
+    function(input, input_length);
     QueryPerformanceCounter(&ending_time);
     return ((ending_time.QuadPart - starting_time.QuadPart) * 1000000) / frequency.QuadPart;
 }

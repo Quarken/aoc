@@ -123,6 +123,7 @@ int main(int arg_count, char** args)
 
     // read input file
     char* input;
+    int input_length = 0;
     {
         char input_file[32];
         snprintf(input_file, sizeof(input_file), "%i/inputs/day%li.txt", AOC_YEAR, solution_index);
@@ -157,6 +158,7 @@ int main(int arg_count, char** args)
             }
         }
         input[new_length] = 0;
+        input_length = new_length;
     }
 
     float min_time = FLT_MAX;
@@ -165,7 +167,7 @@ int main(int arg_count, char** args)
     for (int i = 0; i < runs; i++)
     {
         platform_reset_memory_arena();
-        int64_t time_us = platform_run_timed_microseconds(solutions[solution_index], input);
+        int64_t time_us = platform_run_timed_microseconds(solutions[solution_index], input, input_length);
         float time = time_us / 1000.f;
         min_time = min_time < time ? min_time : time;
         max_time = max_time > time ? max_time : time;
@@ -174,7 +176,7 @@ int main(int arg_count, char** args)
 
     // NOTE: the solution may leave its answer as a string on the arena, fine as long as we dont reinit.
     platform_reset_memory_arena();
-    aoc_answer ans = solutions[solution_index](input);
+    aoc_answer ans = solutions[solution_index](input, input_length);
 
     printf(
         "Advent of Code %i day "RED("%li")"\n"

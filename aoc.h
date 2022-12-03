@@ -1,6 +1,7 @@
 #pragma once
 #include <stdint.h>
 #include <string.h>
+#include <stdbool.h>
 
 #if defined(_MSC_VER)
 #define DLLEXPORT __declspec(dllexport)
@@ -59,12 +60,12 @@ static inline aoc_part_answer int_answer(long long answer)
 
 #define ANSWER(p1, p2) (aoc_answer){ .part1 = PART_ANSWER(p1), .part2 = PART_ANSWER(p2) }
 
-typedef aoc_answer aoc_solution_func(char* input);
+typedef aoc_answer aoc_solution_func(char* input, int input_length);
 
 void platform_init_memory_arena();
 void platform_reset_memory_arena();
 void* platform_load_function(const char* function_symbol);
-int64_t platform_run_timed_microseconds(aoc_solution_func function, char* input);
+int64_t platform_run_timed_microseconds(aoc_solution_func function, char* input, int input_length);
 void platform_get_executable_name(char* buffer, int buffer_size);
 void* amalloc(size_t size);
 
@@ -83,4 +84,14 @@ static inline int parse_int_unsafe(char* ptr, char** end) {
     }
     *end = ptr;
     return result;
+}
+
+static inline int line_length(char* ptr)
+{
+    int i = 0;
+    for (; *ptr != '\n' && *ptr != 0; ++ptr)
+    {
+        i++;
+    }
+    return i;
 }
