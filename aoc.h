@@ -78,7 +78,7 @@ static inline int max(int a, int b) { return a > b ? a : b; }
 
 static inline int parse_int_unsafe(char* ptr, char** end) {
     int result = 0;
-    for (; *ptr != 0 && *ptr != '\n'; ++ptr)
+    for (; *ptr >= '0' && *ptr <= '9'; ++ptr)
     {
         result = 10 * result + (*ptr) - '0';
     }

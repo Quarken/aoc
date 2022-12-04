@@ -182,9 +182,9 @@ int main(int arg_count, char** args)
         "Advent of Code %i day "RED("%li")"\n"
         "-------------------------------------------------------------\n"
         "Timings for "RED("%i")" runs (ms)\n"
-        "  Avg: "BLU("%.3f")"\n"
-        "  Min: "BLU("%.3f")"\n"
-        "  Max: "BLU("%.3f")"\n"
+        "  Avg: "BLU("%.6f")"\n"
+        "  Min: "BLU("%.6f")"\n"
+        "  Max: "BLU("%.6f")"\n"
         "-------------------------------------------------------------\n"
         "Solutions\n",
         AOC_YEAR, solution_index, runs, avg_time, min_time, max_time
