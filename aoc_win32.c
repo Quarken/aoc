@@ -42,7 +42,7 @@ void platform_reset_memory_arena()
     arena.allocated = 0;
 }
 
-void* amalloc(size_t size)
+void* alloc_size(size_t size)
 {
     SIZE_T allocated = arena.allocated + size;
     if (allocated > arena.committed)

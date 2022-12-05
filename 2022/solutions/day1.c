@@ -1,5 +1,15 @@
 #include "aoc.h"
 
+static inline int parse_int_unsafe(char* ptr, char** end) {
+    int result = 0;
+    for (; *ptr >= '0' && *ptr <= '9'; ++ptr)
+    {
+        result = 10 * result + (*ptr) - '0';
+    }
+    *end = ptr;
+    return result;
+}
+
 AOC_SOLUTION(1)(char* input, int input_length)
 {
     int running_max[4] = {0};

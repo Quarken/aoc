@@ -67,7 +67,30 @@ void platform_reset_memory_arena();
 void* platform_load_function(const char* function_symbol);
 int64_t platform_run_timed_microseconds(aoc_solution_func function, char* input, int input_length);
 void platform_get_executable_name(char* buffer, int buffer_size);
-void* amalloc(size_t size);
+void* alloc_size(size_t size);
+
+#define alloc_struct(type) (type *)alloc_size(sizeof(type))
+#define alloc_array(count, type) (type *)alloc_size(sizeof(type) * count)
+
+// ----------------------------
+// strings
+// ----------------------------
+
+typedef struct
+{
+    const char* data;
+    int length;
+} string;
+
+typedef struct
+{
+    int count;
+    string* strings;
+} string_split_result;
+
+string_split_result split_by_until(string str, char by, char until);
+string_split_result split_by(string str, char by);
+int parse_int(string str);
 
 // ----------------------------
 // util functions
@@ -75,16 +98,6 @@ void* amalloc(size_t size);
 
 static inline int min(int a, int b) { return a < b ? a : b; }
 static inline int max(int a, int b) { return a > b ? a : b; }
-
-static inline int parse_int_unsafe(char* ptr, char** end) {
-    int result = 0;
-    for (; *ptr >= '0' && *ptr <= '9'; ++ptr)
-    {
-        result = 10 * result + (*ptr) - '0';
-    }
-    *end = ptr;
-    return result;
-}
 
 static inline int line_length(char* ptr)
 {

@@ -26,6 +26,6 @@ if "%1" equ "debug" (
 
 if not exist build mkdir build
 pushd build
-cl.exe /D_CRT_SECURE_NO_WARNINGS /nologo /std:c11 /W3 /WX /MP /I .. ..\aoc.c ..\aoc_win32.c ..\2022\solutions\*.c /link /INCREMENTAL:NO /FIXED
+cl.exe /D_CRT_SECURE_NO_WARNINGS /nologo /std:c11 /W3 /WX /MP /I .. ..\aoc.c ..\aoc_util.c ..\aoc_win32.c ..\2022\solutions\*.c /link /INCREMENTAL:NO /FIXED
 del *.obj *.lib *.exp vc*.pdb >nul
 popd
