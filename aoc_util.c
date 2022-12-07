@@ -1,31 +1,29 @@
 #include "aoc.h"
 
-string_split_result split_by_until(string str, char by, char until)
+string_split_result split_by(string str, char by)
 {
-    string_split_result result = {0};
+    string_split_result result = {
+        .strings = NULL,
+        .count = 0
+    };
 
     const char* ptr = str.data;
-    int len = 0;
-    int i = 0;
-    for (int i = 0; i <= str.length; i++)
+    int count = 0;
+    for (int i = 0; i < str.length; i++)
     {
-        char c = until;
-        if (i < str.length)
+        if (str.data[i] != by)
         {
-            c = str.data[i];
+            count++;
         }
-
-        if ((c == by || c == until))
+        else
         {
-            if (len > 0)
+            if (count > 0)
             {
                 string* s = alloc_struct(string);
                 s->data = ptr;
-                s->length = len;
-
+                s->length = count;
                 ptr = str.data + i + 1;
-                len = 0;
-
+                count = 0;
                 result.count++;
                 if (result.strings == NULL)
                 {
@@ -37,20 +35,16 @@ string_split_result split_by_until(string str, char by, char until)
                 ptr++;
             }
         }
-        else
-        {
-            len++;
-        }
-
-        if (c == until) break;
+    }
+    if (count > 0)
+    {
+        string* s = alloc_struct(string);
+        s->data = ptr;
+        s->length = count;
+        result.count++;
     }
 
     return result;
-}
-
-string_split_result split_by(string str, char split)
-{
-    return split_by_until(str, split, '\0');
 }
 
 int parse_int(string str)
@@ -58,6 +52,7 @@ int parse_int(string str)
     int result = 0;
     for (int i = 0; i < str.length; i++)
     {
+        if (str.data[i] < '0' || str.data[i] > '9') break;
         result = 10 * result + str.data[i] - '0';
     }
     return result;

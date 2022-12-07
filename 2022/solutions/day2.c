@@ -57,8 +57,8 @@ AOC_SOLUTION(2)(char* input, int input_length)
     {
         char a = p[0] - 'A' + 1;
         char b = p[2] - 'X' + 1;
-        part1 += lookup_part1[a][b];
-        part2 += lookup_part2[a][b];
+        part1 += lookup_part1[(int)a][(int)b];
+        part2 += lookup_part2[(int)a][(int)b];
         if (p[3] == 0) break;
     }
     return ANSWER(part1, part2);

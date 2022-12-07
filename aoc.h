@@ -9,6 +9,16 @@
 #define DLLEXPORT
 #endif
 
+#ifndef NDEBUG
+#if defined(_MSC_VER)
+#define ASSERT(x) (!(x) ? __debugbreak() : 0)
+#endif
+#endif
+
+#ifndef ASSERT
+#define ASSERT(x) (void)(x);
+#endif
+
 #define ARRAY_SIZE(array) (sizeof(array)/sizeof((array)[0]))
 #define UNUSED(x) (void)(x);
 #define STRINGIFY_INTERNAL(s) #s
@@ -88,7 +98,6 @@ typedef struct
     string* strings;
 } string_split_result;
 
-string_split_result split_by_until(string str, char by, char until);
 string_split_result split_by(string str, char by);
 int parse_int(string str);
 
