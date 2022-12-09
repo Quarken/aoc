@@ -19,23 +19,17 @@ static fs_node* find_in_directory(fs_node* dir, const char* name, int name_size)
     return current;
 }
 
-static int calculate_part1(fs_node* root)
-{
-    if (root == NULL) return 0;
-    if (root->size <= 100000) return root->size + calculate_part1(root->next) + calculate_part1(root->child);
-    return calculate_part1(root->next) + calculate_part1(root->child);
-}
-
-static void calculate_part2(fs_node* root, int required_space, int* min_so_far)
+static void recurse_and_calculate(fs_node* root, int required_space, int* part1, int* part2)
 {
     if (root == NULL) return;
-    if (root->size > required_space && root->size < (*min_so_far))
+    if (root->size <= 100000) *part1 += root->size;
+    if (root->size > required_space && root->size < (*part2))
     {
-        *min_so_far = root->size;
+        *part2 = root->size;
     }
 
-    calculate_part2(root->next, required_space, min_so_far);
-    calculate_part2(root->child, required_space, min_so_far);
+    recurse_and_calculate(root->next, required_space, part1, part2);
+    recurse_and_calculate(root->child, required_space, part1, part2);
 }
 
 AOC_SOLUTION(7)(char* input, int input_length)
@@ -43,11 +37,12 @@ AOC_SOLUTION(7)(char* input, int input_length)
     string input_str = { .data = input, .length = input_length };
     string_split_result lines = split_by(input_str, '\n');
 
-    fs_node root = {
+    fs_node filesystem_root = {
         .size = 0,
         .name = ""
     };
-    fs_node* tree_root = &root;
+
+    fs_node* tree_root = &filesystem_root;
     fs_node* current = tree_root;
     for (int line_index = 1; line_index < lines.count; line_index++)
     {
@@ -95,10 +90,10 @@ AOC_SOLUTION(7)(char* input, int input_length)
         }
     }
 
-    int part1 = calculate_part1(tree_root);
-    int unused_space = 70000000 - root.size;
+    int unused_space = 70000000 - filesystem_root.size;
     int required_space = 30000000 - unused_space;
+    int part1 = 0;
     int part2 = INT32_MAX;
-    calculate_part2(tree_root, required_space, &part2);
+    recurse_and_calculate(tree_root, required_space, &part1, &part2);
     return ANSWER(part1, part2);
 }

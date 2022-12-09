@@ -107,6 +107,8 @@ int parse_int(string str);
 
 static inline int min(int a, int b) { return a < b ? a : b; }
 static inline int max(int a, int b) { return a > b ? a : b; }
+static inline int absolute(int x) { return x > 0 ? x : -x; }
+static inline int sign(int x) { return (x > 0) - (x < 0); }
 
 static inline int line_length(char* ptr)
 {
