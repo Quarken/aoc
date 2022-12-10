@@ -50,10 +50,18 @@ string_split_result split_by(string str, char by)
 int parse_int(string str)
 {
     int result = 0;
-    for (int i = 0; i < str.length; i++)
+
+    int start = 0;
+    if (str.data[0] == '-')
+    {
+        start = 1;
+    }
+
+    for (int i = start; i < str.length; i++)
     {
         if (str.data[i] < '0' || str.data[i] > '9') break;
         result = 10 * result + str.data[i] - '0';
     }
-    return result;
+
+    return start == 0 ? result : -result;
 }
