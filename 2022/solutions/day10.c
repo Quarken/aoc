@@ -1,5 +1,4 @@
 #include "aoc.h"
-#include <stdlib.h>
 
 AOC_SOLUTION(10)(char* input, int input_length)
 {

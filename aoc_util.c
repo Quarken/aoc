@@ -42,6 +42,10 @@ string_split_result split_by(string str, char by)
         s->data = ptr;
         s->length = count;
         result.count++;
+        if (result.strings == NULL)
+        {
+            result.strings = s;
+        }
     }
 
     return result;

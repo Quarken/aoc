@@ -34,6 +34,12 @@ void print_solution(int i, aoc_part_answer ans)
             break;
         }
 
+        case AOC_ANSWER_UINT:
+        {
+            printf("%llu" RESET "\n", ans.uint_answer);
+            break;
+        }
+
         case AOC_ANSWER_STRING:
         {
             // remove trailing/leading newlines and do a padded print

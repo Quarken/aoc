@@ -32,6 +32,7 @@
 typedef enum
 {
     AOC_ANSWER_INT,
+    AOC_ANSWER_UINT,
     AOC_ANSWER_STRING
 } aoc_answer_type;
 
@@ -40,7 +41,8 @@ typedef struct
     aoc_answer_type type;
     union
     {
-        long long int_answer;
+        int64_t int_answer;
+        uint64_t uint_answer;
         char* string_answer;
     };
 } aoc_part_answer;
@@ -61,11 +63,16 @@ static inline aoc_part_answer int_answer(long long answer)
     return (aoc_part_answer){ .type = AOC_ANSWER_INT, .int_answer = answer };
 }
 
+static inline aoc_part_answer uint_answer(uint64_t answer)
+{
+    return (aoc_part_answer){ .type = AOC_ANSWER_UINT, .uint_answer = answer };
+}
+
 #define PART_ANSWER(ans) _Generic((ans),    \
     char*:          string_answer,          \
-    int:            int_answer,             \
-    long:           int_answer,             \
-    long long:      int_answer              \
+    int32_t:        int_answer,             \
+    int64_t:        int_answer,             \
+    uint64_t:       uint_answer             \
 )(ans)
 
 #define ANSWER(p1, p2) (aoc_answer){ .part1 = PART_ANSWER(p1), .part2 = PART_ANSWER(p2) }
