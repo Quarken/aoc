@@ -17,15 +17,15 @@ if "%1" equ "debug" (
     set CL=/MTd /Od /Zi /RTC1 /fsanitize=address
     set LINK=/DEBUG:FULL
 ) else if "%1" equ "profile" (
-    set CL=/MTd /DNDEBUG /GL /O2 /Zi /GS-
+    set CL=/MTd /DNDEBUG /GL /O2 /Zi /GS- -Wno-unused-command-line-argument
     set LINK=/LTCG /OPT:REF /OPT:ICF
 ) else (
-    set CL=/MT /GL /O2 /DNDEBUG /GS-
+    set CL=/MT /GL /O2 /DNDEBUG /GS- -Wno-unused-command-line-argument
     set LINK=/LTCG /OPT:REF /OPT:ICF
 )
 
 if not exist build mkdir build
 pushd build
-cl.exe /D_CRT_SECURE_NO_WARNINGS /nologo /std:c11 /W3 /WX /MP /I .. ..\aoc.c ..\aoc_util.c ..\aoc_win32.c ..\2022\solutions\*.c /link /INCREMENTAL:NO /FIXED
+clang-cl.exe /D_CRT_SECURE_NO_WARNINGS /nologo /std:c11 /W3 /WX /MP /I .. ..\aoc.c ..\aoc_util.c ..\aoc_win32.c ..\2022\solutions\*.c /link /INCREMENTAL:NO /FIXED
 del *.obj *.lib *.exp vc*.pdb >nul
 popd
